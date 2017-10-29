@@ -80,7 +80,21 @@ class Country:
         self.un = un
         self.data = {
             "China" : 50,
-
+            "Egypt" : 50,
+            "France" : 50,
+            "India" : 50,
+            "Indonesia" : 50,
+            "Iran" : 50,
+            "Myanmar" : 50,
+            "NorthKorea" : 50,
+            "Pakistan" : 50,
+            "Russia" : 50,
+            "SouthKorea" : 50,
+            "Thailand" : 50,
+            "Turkey" : 50,
+            "UnitedKingdom" : 50,
+            "UnitedStates": 50,
+            "Vietnam" : 50
         }
 
     def get_relationships(self):
