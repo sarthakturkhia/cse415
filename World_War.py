@@ -24,17 +24,46 @@ class State:
         return ""
 
 
+    def get_relationship(country1, country2):
+        result = 50
+        if(abs(country1.troop_size() - country2.troop_size()) > 10):
+            result += 5
+        else:
+            result += -5
+        if(abs(country1.gdp() - country2.gdp()) > 3):
+            result += -3
+        else:
+            result += 3
+        if(country1.is_nato() and country2.is_nato()):
+            result += -10
+        else:
+            result += 10
+        if(country1.is_nuclear() and country2.is_nuclear()):
+            result+= -10
+        else:
+            result+= 10
+        if(abs(country1.world_influence() - country2.world_influence()) > 3):
+            result += 3
+        else:
+            result += -3
+
 
 class Country:
     def __init__(self, name, army, gdp, nato, nuclear, w_i, un):
         self.name = name
-        self.data = {}
         self.army = army
         self.gdp = gdp
         self.nato = nato
         self.nuclear = nuclear
         self.w_i = w_i
         self.un = un
+        self.data = {
+            "China" : 50,
+
+        }
+
+    def get_relationships(self):
+        return self.data
 
     def describe(self):
         result = "\n"
