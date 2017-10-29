@@ -5,11 +5,20 @@ QUIET_VERSION = "0.1"
 PROBLEM_NAME = "Basic Eight Puzzle"
 PROBLEM_VERSION = "0.0"
 PROBLEM_AUTHORS = ['E.Yeung','']
-PROBLEM_CREATION_DATE = "19-OCT-2017"
+PROBLEM_CREATION_DATE = "27-OCT-2017"
 PROBLEM_DESC=""
 #</METADATA>
 
+from SortedCollection import SortedDict 
+from itertools import permutations
+
+
 #<COMMON_CODE>
+
+COUNTRIES = ["China", "Egypt", "France", "India", "Indonesia", "Iran", "Myanmar",
+             "NorthKorea", "Pakistan", "Russia", "SouthKorea", "Thailand", "Turkey",
+             "UnitedKingdom", "UnitedStates", "Vietnam"]
+
 class State:
     def __init__(self, d):
         self.d = d
@@ -17,13 +26,25 @@ class State:
     def __str__(self):
         return ""
 
-    def can_move(self,spaces):
-        index = 0
+    #threshold 80 -> if one does not have nuclear power, give nuclear power
+
+    #threshold 90 -> if two perm un members, treaty => -30
+
+    #threshold 70 -> if military size difference >10, NATO or non-NATO allies send 2*100k troops
     
-    def move(self,spaces):
-        return ""
+    def update_world_influence_rank(self):
+        ranking = SortedDict()
+        #put all countries into a sortedlist, ranked by the worldinfludnceindex function
+        for country in COUNTRIES:
+            ranking[country] = self.d[country].world_influence_index()
 
-
+        #updates all the rankings in the Country objects, from highest to lowest
+        currentrank = 1
+        while len(ranking) > 0:
+            top = ranking.popitem()
+            self.d[top[0]].update_world_influence(currentrank)
+            currentrank += 1
+        
 
 class Country:
     def __init__(self, name, army, gdp, nato, nuclear, w_i, un):
@@ -79,12 +100,27 @@ class Country:
 #</COMMON_CODE>
 
 #<INITIAL_STATE>
-
+CREATE_INITIAL_STATE = lambda: State({"China":Country("China", 34, 112.3, False, True, 3, True),
+                                      "Egypt":Country("Egypt", 13, 3.3, True, False, 9, False)
+                                      "France":Country("France", 4, 24.7, True, True, 5, True)
+                                      "India":Country("India", 49, 22.6, False, True, 6, False)
+                                      "Indonesia":Country("Indonesia", 11, 9.3, False, False, 13, False)
+                                      "Iran":Country("Iran", 9, 3.8, False, False, 11, False)
+                                      "Myanmar":Country("Myanmar", 5, 0.7, False, False, 15, False)
+                                      "NorthKorea":Country("NorthKorea", 77, 0.2, False, True, 16, False)
+                                      "Pakistan":Country("Pakistan", 9, 2.8, True, True, 12, False)
+                                      "Russia":Country("Russia", 35, 12.8, False, True, 2, True)
+                                      "SouthKorea":Country("SouthKorea", 81, 14.1, True, False, 7, False)
+                                      "Thailand":Country("Thailand", 7, 4.1, False, False, 10, False)
+                                      "Turkey":Country("Turkey", 9, 8.6, True, False, 8, False)
+                                      "UnitedKingdom":Country("UnitedKingdom", 2, 26.3, True, True, 4, True)
+                                      "UnitedStates":Country("UnitedStates", 22, 186.2, True, True, 1, True)
+                                      "Vietname":Country("Vietnam", 55, 2.0, False, False, 14, False)})
 #</INITIAL_STATE>
 
 
 #<OPERATORS>
-
+country_combinations = list(permutations(COUNTRIES, 2))
         
 #</OPERATORS>
 
