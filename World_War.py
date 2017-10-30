@@ -9,7 +9,7 @@ PROBLEM_CREATION_DATE = "27-OCT-2017"
 PROBLEM_DESC=""
 #</METADATA>
 
-from sortedcontainers import SortedDict 
+from priorityq2 import PriorityQ
 from itertools import permutations
 
 
@@ -141,8 +141,8 @@ class State:
 
     #threshold < 30 -> if good relations, then form trade agreement, no limitations.
     def can_trade_agreement(self, country1, country2):
-        #return false if relationship is greater than 30
-        return self.get_relationship(country1, country2) > 30
+        #return false if relationship is greater than 30 
+        return self.get_relationship(country1, country2) < 30
 
     def trade_agreement(self, country1, country2):
 
@@ -175,8 +175,8 @@ class State:
         c1 = news.d[country1]
         c2 = news.d[country2]
 
-        c1.data[country2] += 15
-        c2.data[country1] += 15
+        c1.data[country2] += 10
+        c2.data[country1] += 10
 
         news.update_everything()
         
@@ -185,12 +185,12 @@ class State:
     def update_everything(self):
 
         #update world ranks
-        ranking = SortedDict()
+        ranking = PriorityQ()
         #put all countries into a sortedlist, ranked by the worldinfludnceindex function
         for country in COUNTRIES:
             current = self.d[country]
             
-            ranking[country] = current.world_influence_index()
+            ranking.insert(country, current.world_influence_index())
 
             #update army size and gdp as per a static gain
             current.update_troops()
@@ -199,7 +199,7 @@ class State:
         #updates all the rankings in the Country objects, from highest to lowest
         currentrank = 1
         while len(ranking) > 0:
-            top = ranking.popitem()
+            top = ranking.deletemin()
             self.d[top[0]].update_world_influence(currentrank)
             currentrank += 1
         
