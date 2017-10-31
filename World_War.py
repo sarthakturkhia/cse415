@@ -1,4 +1,9 @@
-
+'''
+World_war.py
+Assignment 4: Wicked Problem
+Sarthak Turkhia
+Ernie Yeung
+'''
 
 #<METADATA>
 QUIET_VERSION = "0.1"
@@ -234,7 +239,7 @@ class State:
         else:
             result += -3
 
-        return result
+        return max(result, 0)
 
 
 class Country:

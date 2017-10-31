@@ -86,11 +86,11 @@ Team:
 
 # Change the following to represent your own information:
 
-maggie = Partner("Smith", "Margaret", "maggiesmith99")
-john = Partner("Doe", "John", "jd007")
+maggie = Partner("Turkhia", "Sarthak", "sartht")
+john = Partner("Yeung", "Ernie", "ernyeung")
 team = [maggie, john]
 
-problem1 = Problem("Ending World Poverty", 'wicked', "World_War")
+problem1 = Problem("Avoiding another world war", 'wicked', "World_War")
  # In this case, the Python file for the formulation would be named End_Poverty.py.
 
 problems = [problem1]
